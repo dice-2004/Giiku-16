@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 /.venv/
+output.py
 # Distribution / packaging
 .Python
 build/
