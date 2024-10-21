@@ -1,12 +1,10 @@
-from modules import notion
-import configparser
+from modules import fetch_class,notion_class
+import discord
 
-config=configparser.ConfigParser()
-config.read('./config.ini',encoding='utf-8')
-notion_token = config['NOTION']['NOTION_TOKEN']
-page_id = config['NOTION']['PAGE_ID']
-database_id = config['NOTION']['DATABASE_ID']
+fetch=fetch_class.fetcher()
+config_data=fetch.fetch()
+notion=notion_class.Notion(config_data['notion_token'])
 
-notion = notion.Notion(notion_token)
-str=notion.get_database(database_id)
+print(config_data)
+str=notion.get_database(config_data['database_id'])
 print(str)
