@@ -6,6 +6,7 @@ anyio==4.6.2.post1
 attrs==23.2.0
 build==1.0.3
 certifi==2024.8.30
+<<<<<<< HEAD
 cffi==1.16.0
 cmake==3.29.2
 colorama==0.4.6
@@ -15,6 +16,12 @@ discord.py==2.3.2
 dlib==19.24.2
 flatbuffers==24.3.25
 fonttools==4.51.0
+=======
+discord==2.3.2
+discord.py==2.4.0
+dotenv==0.0.5
+exceptiongroup==1.2.2
+>>>>>>> 0d7367344e6514289bf944507643c0496156192e
 frozenlist==1.4.1
 h11==0.14.0
 httpcore==1.0.6
