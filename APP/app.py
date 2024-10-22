@@ -34,13 +34,40 @@ async def on_ready():
 async def time_fetch(ctx):
     await ctx.send(f"{time.ctime()}")
 
+@bot.command()
+async def mention_user(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.author
+    await ctx.send(f'hello {member.mention}!')
+
+
+@bot.command()
+async def suneo_dance(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.author
+
+    kWat0 = await bot.fetch_user(965208013340311633)
+
+    embed = discord.Embed(
+        title = "Let's dance!",
+        description = f'FROM 「{kWat0.display_name}」 TO 「{member.mention}」',
+        color = discord.Color.blue()
+    )
+
+    # embed.add_field(name="Let's dance!", value="https://media1.tenor.com/m/4poLNzFGYTwAAAAC/suneo-dance-dance.gif", inline = False)
+    embed.set_image(url="https://media1.tenor.com/m/4poLNzFGYTwAAAAC/suneo-dance-dance.gif")
+
+    await ctx.send(embed=embed)
+
 @bot.event
 async def on_message(message):
     # メッセージが/time_fetchだった場合:
 
     if message.author.bot:
         return
+    user_id = await bot.fetch_user(965208013340311633)
     await bot.process_commands(message)
-    await message.channel.send("https://media1.tenor.com/m/Svj9Vi7Y8E0AAAAd/dance-moves-doraemon.gif")
+    if user_id == message.author:
+        await message.channel.send(f'{user_id.mention} shut up!')
 
 bot.run(config_data["discord_token"])
