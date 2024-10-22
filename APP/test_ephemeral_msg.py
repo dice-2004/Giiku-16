@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands 
 
-async def test_ephe(ctx, interaction_response : InteractionResponse):
+async def test_ephe(ctx : commands.context, interaction : discord.Interaction):
     if ctx.author.bot:
         return
 
@@ -13,5 +13,5 @@ async def test_ephe(ctx, interaction_response : InteractionResponse):
     await ctx.channel.send(embed = embed)
 
     #ephemeral messageの送信
-    interaction_response = discord.InteractionResponse()
-    await interaction_response.send_message(embed = embed, ephemeral = True)
+    
+    await interaction.response.send_message(embed = embed, ephemeral = True)

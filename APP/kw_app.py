@@ -17,7 +17,7 @@ config_data = fetch.fetch()
 intents =discord.Intents.default()
 intents.members = True
 intents.message_content = True
-
+interaction = discord.Interaction()
 
 bot=commands.Bot(
         command_prefix="/",
@@ -36,8 +36,8 @@ async def time_fetch(ctx):
     await ctx.send(f"{time.ctime()}")
 
 @bot.event
-async def on_message(message):
+async def on_message(ctx):
     # メッセージが/time_fetchだった場合:
-    await ttt.test_ephe(message)
+    await ttt.test_ephe(ctx, interaction)
     
 bot.run(config_data["discord_token"])
