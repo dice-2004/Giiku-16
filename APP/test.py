@@ -28,6 +28,17 @@ async def on_ready():
 async def test(interaction: discord.Interaction, text: str):
     await interaction.response.send_message(f'てすと！{text}', ephemeral=True)
 
+@bot.tree.command(name="suneo",description="テストコマンドです。")
+async def suneo_dance(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title = "Let's dance!",
+        color = discord.Color.blue()
+    )
+
+    embed.set_image(url="https://media1.tenor.com/m/4poLNzFGYTwAAAAC/suneo-dance-dance.gif")
+    await interaction.response.send_message(embed=embed)
+
+
 
 # 通常のコマンドの例（!testで動作）
 @bot.command()
