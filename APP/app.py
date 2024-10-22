@@ -41,6 +41,6 @@ async def on_message(message):
     if message.author.bot:
         return
     await bot.process_commands(message)
-    await message.channel.send(message.content)
+    await message.channel.send("https://media1.tenor.com/m/Svj9Vi7Y8E0AAAAd/dance-moves-doraemon.gif")
 
 bot.run(config_data["discord_token"])
