@@ -25,8 +25,9 @@ async def on_ready():
 
 # スラッシュコマンドの定義
 @bot.tree.command(name="test", description="テストコマンドです")
-async def test(interaction: discord.Interaction):
-    await interaction.response.send_message("てすと！", ephemeral=True)
+async def test(interaction: discord.Interaction, text: str):
+    await interaction.response.send_message(f'てすと！{text}', ephemeral=True)
+
 
 # 通常のコマンドの例（!testで動作）
 @bot.command()
