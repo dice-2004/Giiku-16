@@ -50,7 +50,8 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
 
 async def load_extensions():
-    await bot.load_extension("cogs.botton")  # cogsディレクトリのtest_commands.pyをロード
+    await bot.load_extension("cogs.botton")
+    await bot.load_extension("cogs.template")
 
 async def main():
     async with bot:
