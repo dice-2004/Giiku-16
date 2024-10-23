@@ -34,7 +34,14 @@ async def test_command2(interaction: discord.Interaction):
         discord.SelectOption(label="しずか",value="shizuka",description="crazy")
     ]
     view = discord.ui.View()
-    view.add_item(discord.ui.Select(custom_id="select_box",options=select))
+
+    dropdown = discord.ui.Select(
+        custom_id="select_box",
+        options=select,
+        min_values=1,
+        max_values=1
+    )
+    view.add_item(dropdown)
     await interaction.response.send_message(view=view)
 
 
