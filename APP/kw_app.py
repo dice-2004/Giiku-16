@@ -39,6 +39,7 @@ async def on_ready():
 
 
 @bot.tree.command(name="button", description="Display Button")
+@bot.tree.command(name="button", description="Display Button")
 async def disp_button(interaction: discord.Interaction):
     # embedの表示
     author = interaction.user
