@@ -18,17 +18,11 @@ config_data = fetch.fetch()
 intents =discord.Intents.default()
 intents.members = True
 intents.message_content = True
-<<<<<<< HEAD
-client = discord.Client(intents=intents)
-tree = app_commands.CommandTree(client)
-=======
 interaction = discord.Interaction()
->>>>>>> 8ef1dcaa0ea2b158c4e5302d72bbeecf6559c140
 
 bot=commands.Bot(
     command_prefix="/",
     intents=intents,
-    application_id=config_data[client.id],  # application_idを指定
     activity=discord.Game("hogehoge"),
 )
 
@@ -40,11 +34,11 @@ class DispButton(discord.ui.View):
 async def on_ready():
     print("Bot is ready")
     new_activity = f"kwテスト中"
-    await tree.sync()
+    await bot.tree.sync()
     await bot.change_presence(activity=discord.Game(new_activity))
 
 
-@tree.command(name="button", description="Display Button")
+@bot.tree.command(name="button", description="Display Button")
 async def disp_button(interaction: discord.Interaction):
     # embedの表示
     author = interaction.user
@@ -62,16 +56,7 @@ async def time_fetch(ctx):
 @bot.event
 async def on_message(ctx):
     # メッセージが/time_fetchだった場合:
-<<<<<<< HEAD
-
-    if message.author.bot:
-        return
-    await bot.process_commands(message)
-    await message.channel.send(message.content)
-
-=======
     await ttt.test_ephe(ctx, interaction)
->>>>>>> 8ef1dcaa0ea2b158c4e5302d72bbeecf6559c140
     
 
 bot.run(config_data["discord_token"])
