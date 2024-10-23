@@ -116,4 +116,5 @@ async def on_dropdown(inter:discord.Interaction):
     elif select_values[0] == "shizuka":
         await shizuka_hatena(inter)
 
-client.run(config_data["discord_token"])
+if __name__ == '__main__':
+    client.run(config_data["discord_token"])
