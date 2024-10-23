@@ -1,5 +1,5 @@
 from modules import fetch_class
-import discord
+import discord  # ver.2.3.2
 from discord.ext import commands
 
 fetch = fetch_class.fetcher()
