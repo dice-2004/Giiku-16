@@ -72,4 +72,4 @@ if __name__ == "__main__":
     notion = Notion(notion_token)
     str=[]
     str=notion.get_notion_data(database_id)
-    # print(str)
+    print(str)
