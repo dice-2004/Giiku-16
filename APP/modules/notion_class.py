@@ -6,11 +6,10 @@ class Notion:
     def __init__(self, token):
         self.client = Client(auth=token)
 
-    def get_database(self, database_id):
-        return self.client.databases.retrieve(database_id)
 
     def get_pages(self, database_id):
         return self.client.databases.query(database_id)
+
 
     def get_notion_data(self, database_id):
         # template =[{"title":value,"select":value,"timeschedul":value,"okperson":value},{"title":value,"select":value,"timeschedul":value,"okperson":value},...]
@@ -46,11 +45,41 @@ class Notion:
             return_data.append(out_data)
         return return_data #期限越え判定 ＝dead_line_exceed
 
+    def get_page_id(self, database_id, title):
+        notion_data = self.get_pages(database_id)
+        if notion_data is None:  # 追加: notion_dataがNoneの場合の処理
+            return None
+
+        for data in notion_data["results"]:
+            title_notif = notion_data.get("results")[0].get('properties').get('名前').get('title')[0].get('plain_text').replace("\u3000"," ")
+
+            if title_notif == title:
+                return data["id"].replace("-", "")
+        return None
+
+    def create_page(self, database_id,title,):
+        return self.client.pages.update()
 
 
+    # def update(self, database_id: str, **kwargs: Any) -> SyncAsync[Any]:
+    #     """Update an existing database as specified by the parameters.
 
-    # def create_page(self, database_id, properties):
-    #     return self.client.pages.create(parent={"database_id": database_id}, properties=properties)
+    #     *[🔗 Endpoint documentation](https://developers.notion.com/reference/update-a-database)*
+    #     """  # noqa: E501
+    #     return self.parent.request(
+    #         path=f"databases/{database_id}",
+    #         method="PATCH",
+    #         body=pick(
+    #             kwargs,
+    #             "properties",
+    #             "title",
+    #             "description",
+    #             "icon",
+    #             "cover",
+    #             "is_inline",
+    #         ),
+    #         auth=kwargs.get("auth"),
+    #     )
 
 
 if __name__ == "__main__":
@@ -70,6 +99,8 @@ if __name__ == "__main__":
     database_id = config['NOTION']['DATABASE_ID']
 
     notion = Notion(notion_token)
-    str=[]
-    str=notion.get_notion_data(database_id)
+    # str=[]
+    # str=notion.get_notion_data(database_id)
+    # print(str)
+    str = notion.get_page_id(database_id, "データベース中間")
     print(str)
