@@ -60,26 +60,27 @@ class Notion:
     def create_page(self, database_id,title,):
         return self.client.pages.update()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    def update(self, database_id: str, **kwargs: Any) -> SyncAsync[Any]:
+        """#Update an existing database as specified by the parameters.
 
-    # def update(self, database_id: str, **kwargs: Any) -> SyncAsync[Any]:
-    #     """Update an existing database as specified by the parameters.
-
-    #     *[🔗 Endpoint documentation](https://developers.notion.com/reference/update-a-database)*
-    #     """  # noqa: E501
-    #     return self.parent.request(
-    #         path=f"databases/{database_id}",
-    #         method="PATCH",
-    #         body=pick(
-    #             kwargs,
-    #             "properties",
-    #             "title",
-    #             "description",
-    #             "icon",
-    #             "cover",
-    #             "is_inline",
-    #         ),
-    #         auth=kwargs.get("auth"),
-    #     )
+        # *[🔗 Endpoint documentation](https://developers.notion.com/reference/update-a-database)*
+"""  # noqa: E501
+        return self.parent.request(
+            path=f"databases/{database_id}",
+            method="PATCH",
+            body=pick(
+                kwargs,
+                "properties",
+                "title",
+                "description",
+                "icon",
+                "cover",
+                "is_inline",
+            ),
+            auth=kwargs.get("auth"),
+        )
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 if __name__ == "__main__":
