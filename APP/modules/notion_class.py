@@ -20,24 +20,28 @@ class Notion:
         for data in datas:
             pro_data = data.get('properties')
             title=pro_data.get('名前').get('title')[0].get('plain_text')
-            title = title.replace(" ","\u3000")
+            title = title.replace("\u3000"," ")
 
             select_property = pro_data.get('セレクト')
             select = select_property.get('select').get('name') if select_property and select_property.get('select') else None
-            # select_property =select_property.replace(" ","\u3000")
+            if select is not None:
+                select =select.replace("\u3000"," ")
 
             timeschedul=pro_data.get('提出期限').get('date').get('start')
             if "T" in timeschedul:
                 timeschedul=timeschedul.split("T")[0]
             timeschedul = timeschedul.replace("-","/")
-            timeschedul=timeschedul.replace(" ","\u3000")
+            timeschedul=timeschedul.replace("\u3000"," ")
 
             okpersons=pro_data.get('完了済').get('people')
             person=[]
-            for okperson in okpersons:
-                okperson=okperson.get('name')
-                okperson=okperson.replace(" ","\u3000")
+
+            for okperson_name in okpersons:
+                okperson=okperson_name.get('name')
+                okperson=okperson.replace("\u3000"," ")
                 person.append(okperson)
+            # print(title,select,timeschedul,person)
+            # print(person)
             out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person}
             return_data.append(out_data)
         return return_data
