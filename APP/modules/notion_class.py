@@ -1,5 +1,6 @@
 from notion_client import Client
 import os
+import json
 
 class Notion:
     def __init__(self, token):
@@ -11,6 +12,35 @@ class Notion:
     def get_pages(self, database_id):
         return self.client.databases.query(database_id)
 
+    def get_notion_data(self, database_id):
+        # template =[{"title":value,"select":value,"timeschedul":value,"okperson":value},{"title":value,"select":value,"timeschedul":value,"okperson":value},...]
+        return_data=[]
+        notion_data = self.get_pages(database_id)
+        datas=notion_data['results']
+        for data in datas:
+            pro_data = data.get('properties')
+            title=pro_data.get('名前').get('title')[0].get('plain_text')
+            title = title.replace(" ","\u3000")
+
+            select_property = pro_data.get('セレクト')
+            select = select_property.get('select').get('name') if select_property and select_property.get('select') else None
+            # select_property =select_property.replace(" ","\u3000")
+
+            timeschedul=pro_data.get('提出期限').get('date').get('start')
+            if "T" in timeschedul:
+                timeschedul=timeschedul.split("T")[0]
+            timeschedul = timeschedul.replace("-","/")
+            timeschedul=timeschedul.replace(" ","\u3000")
+
+            okpersons=pro_data.get('完了済').get('people')
+            person=[]
+            for okperson in okpersons:
+                okperson=okperson.get('name')
+                okperson=okperson.replace(" ","\u3000")
+                person.append(okperson)
+            out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person}
+            return_data.append(out_data)
+        return return_data
     # def create_page(self, database_id, properties):
     #     return self.client.pages.create(parent={"database_id": database_id}, properties=properties)
 
@@ -32,5 +62,6 @@ if __name__ == "__main__":
     database_id = config['NOTION']['DATABASE_ID']
 
     notion = Notion(notion_token)
-    str=notion.get_database(database_id)
+    str=[]
+    str=notion.get_notion_data(database_id)
     print(str)
