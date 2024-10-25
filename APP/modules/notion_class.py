@@ -35,16 +35,20 @@ class Notion:
 
             okpersons=pro_data.get('完了済').get('people')
             person=[]
+            dead_line_exceed = pro_data.get('期限越え判定').get('formula').get('boolean')
 
             for okperson_name in okpersons:
                 okperson=okperson_name.get('name')
                 okperson=okperson.replace("\u3000"," ")
                 person.append(okperson)
-            # print(title,select,timeschedul,person)
-            # print(person)
+
             out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person}
             return_data.append(out_data)
-        return return_data
+        return return_data #期限越え判定 ＝dead_line_exceed
+
+
+
+
     # def create_page(self, database_id, properties):
     #     return self.client.pages.create(parent={"database_id": database_id}, properties=properties)
 
@@ -68,4 +72,4 @@ if __name__ == "__main__":
     notion = Notion(notion_token)
     str=[]
     str=notion.get_notion_data(database_id)
-    print(str)
+    # print(str)
