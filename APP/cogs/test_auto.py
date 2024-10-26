@@ -16,16 +16,6 @@ class TestAuto(commands.Cog):  # Cogクラスの継承を修正
     async def on_ready(self):
         await self.tree.sync()  # Botが準備完了したときにコマンドを同期
 
-    @tasks.loop(seconds=10)
-    async def loop():
-        client = discord.Client()
-        print("1")
-        now = datetime.now(timezone.utc)
-        print("2")
-        ch = client.get_channel(CHANNEL_ID)
-        print("3")
-        await ch.send(now)
-        print("4")
 
     @app_commands.command(name="auto", description="auto_test")
     async def template(self, interaction: discord.Interaction):
