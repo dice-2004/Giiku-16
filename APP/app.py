@@ -25,4 +25,14 @@ async def main():
         await bot.start(config_data["discord_token"])
 
 import asyncio
-asyncio.run(main())
+
+try:
+    asyncio.run(main())
+except KeyboardInterrupt:
+    print("停止しますぅぃぅぃぅぃ")
+    # bot.close()
+    exit()
+except Exception as e:
+    print(e)
+    # bot.close()
+    exit()
