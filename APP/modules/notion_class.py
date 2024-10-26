@@ -41,9 +41,9 @@ class Notion:
                 okperson=okperson.replace("\u3000"," ")
                 person.append(okperson)
 
-            out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person}
+            out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person,"dead_line_exceed":dead_line_exceed}
             return_data.append(out_data)
-        return return_data #期限越え判定 ＝dead_line_exceed
+        return return_data
 
     def get_page_id(self, database_id, title):
         notion_data = self.get_pages(database_id)
