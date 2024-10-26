@@ -27,8 +27,8 @@ class AutoAnnounce():
         custom_id = inter.data["custom_id"]
         if custom_id == "check":
             task_embed = discord.Embed(
-                title = "あなたのユーザー名",
-                description = inter.user.name + "#" + inter.user.discriminator,
+                title = "今日明日が期限のタスク",
+                description = "ユーザー名 : " + inter.user.name,
                 color = 0x0000ff
             )
             await inter.response.send_message(embed=task_embed,ephemeral=True)

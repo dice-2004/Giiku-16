@@ -4,7 +4,7 @@ from discord.ext import commands
 
 #自動通知機能で使用
 from discord.ext import commands, tasks
-from cogs.auto_announce import AutoAnnounce
+from APP.modules.auto_announce import AutoAnnounce
 
 fetch = fetch_class.fetcher()
 config_data = fetch.fetch()
