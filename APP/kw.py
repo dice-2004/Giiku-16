@@ -1,7 +1,7 @@
 from modules import fetch_class
 import discord  # ver.2.3.2
 from discord.ext import commands, tasks
-from cogs.auto_announce import AutoAnnounce
+from APP.modules.auto_announce import AutoAnnounce
 
 fetch = fetch_class.fetcher()
 config_data = fetch.fetch()
