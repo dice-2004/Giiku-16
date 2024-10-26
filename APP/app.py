@@ -18,6 +18,7 @@ async def load_extensions():
     await bot.load_extension("cogs.botton")
     await bot.load_extension("cogs.template")
     await bot.load_extension("cogs.test_notion")
+    await bot.load_extension("cogs.test_auto")
 
 async def main():
     async with bot:
