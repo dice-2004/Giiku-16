@@ -18,10 +18,11 @@ class test_notion(commands.Cog):  # Cogクラスの継承を修正
     @commands.Cog.listener()
     async def on_ready(self):
         await self.tree.sync()  # Botが準備完了したときにコマンドを同期
+        print("コマンド同期完了")
 
     @app_commands.command(name="template", description="テンプレです")
     async def template(self, interaction: discord.Interaction):
-        await interaction.response.send_message("テンプレです。")
+        await interaction.response.send_message("aaa")
 
     @app_commands.command(name="show_data", description="test")
     async def template(self, interaction: discord.Interaction):

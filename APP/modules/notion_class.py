@@ -6,13 +6,11 @@ class Notion:
     def __init__(self, token):
         self.client = Client(auth=token)
 
-
     def get_pages(self, database_id):
         return self.client.databases.query(database_id)
 
-
     def get_notion_data(self, database_id):
-        # template =[{"title":value,"select":value,"timeschedul":value,"okperson":value},{"title":value,"select":value,"timeschedul":value,"okperson":value},...]
+        # template =[{"title":value,"select":value,"timeschedule":value,"okperson":value},{"title":value,"select":value,"timeschedule":value,"okperson":value},...]
         return_data=[]
         notion_data = self.get_pages(database_id)
         datas=notion_data['results']
@@ -26,11 +24,11 @@ class Notion:
             if select is not None:
                 select =select.replace("\u3000"," ")
 
-            timeschedul=pro_data.get('提出期限').get('date').get('start')
-            if "T" in timeschedul:
-                timeschedul=timeschedul.split("T")[0]
-            timeschedul = timeschedul.replace("-","/")
-            timeschedul=timeschedul.replace("\u3000"," ")
+            timeschedule=pro_data.get('提出期限').get('date').get('start')
+            if "T" in timeschedule:
+                timeschedule=timeschedule.split("T")[0]
+            timeschedule = timeschedule.replace("-","/")
+            timeschedule=timeschedule.replace("\u3000"," ")
 
             okpersons=pro_data.get('完了済').get('people')
             person=[]
@@ -41,8 +39,7 @@ class Notion:
                 okperson=okperson.replace("\u3000"," ")
                 person.append(okperson)
 
-            out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person,"dead_line_exceed":dead_line_exceed}
-            print(out_data)
+            out_data={"title":title,"select":select,"timeschedule":timeschedule,"person":person,"dead_line_exceed":dead_line_exceed}
             return_data.append(out_data)
         return return_data
 
