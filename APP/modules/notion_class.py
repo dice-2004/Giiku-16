@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     notion = Notion(notion_token)
     # str=[]
-    # str=notion.get_notion_data(database_id)
+    str=notion.get_notion_data(database_id)
     # print(str)
-    str = notion.get_page_id(database_id, "データベース中間")
+    # str = notion.get_page_id(database_id, "データベース中間")
     print(str)
