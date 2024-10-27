@@ -126,7 +126,9 @@ class Button(commands.Cog):  # Cogクラスの継承を修正
 
     @commands.Cog.listener()
     async def on_ready(self):
+        print("コマンド同期開始")
         await self.tree.sync()  # Botが準備完了したときにコマンドを同期
+        print("コマンド同期完了")
 
     @app_commands.command(name="gif_button", description="GIF画像を送れるよ")
     async def test_command3(self, interaction: discord.Interaction):

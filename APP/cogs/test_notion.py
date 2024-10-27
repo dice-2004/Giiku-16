@@ -1,42 +1,55 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-from datetime import date
+from datetime import datetime
+from modules import fetch_class
+from modules import notion_class
 
-notion_data = [
-    {"title" : "java", "select" : "aa", "timeSchedule" : "2024-10-20", "okPerson" : "@naomi_1156"},
-    {"title" : "情報数学", "select" : "ii", "timeSchedule" : "2024-10-20", "okPerson" : "@chog29."},
-    {"title" : "情報科学演習", "select" : "uu", "timeSchedule" : "2024-10-25", "okPerson" : "@._.dice._."},
-    {"title" : "肥満", "select" : "ee", "timeSchedule" : "2024-10-25", "okPerson" : "@kwat0_0d065"}
-]
+fetch = fetch_class.fetcher()
+config_data = fetch.fetch()
 
-class test_notion(commands.Cog):  # Cogクラスの継承を修正
+database_id = config_data["database_id"]
+notion_token = config_data["notion_token"]
+
+nc = notion_class.Notion(notion_token)
+
+class test_notion_a(commands.Cog):  # Cogクラスの継承を修正
     def __init__(self, bot):
         self.bot = bot
         self.tree = bot.tree  # デフォルトの CommandTree を使用
 
     @commands.Cog.listener()
     async def on_ready(self):
+        print("コマンド同期開始")
         await self.tree.sync()  # Botが準備完了したときにコマンドを同期
         print("コマンド同期完了")
 
-    @app_commands.command(name="template", description="テンプレです")
-    async def template(self, interaction: discord.Interaction):
-        await interaction.response.send_message("aaa")
+    # @app_commands.command(name="show_data", description="表示したい個数入力可能")
+    # async def show_data(self, interaction: discord.Interaction, loop_cnt: int = 1):
+    #     print("/show_data")
+    #     data = nc.get_notion_data(database_id)
 
-    @app_commands.command(name="show_data", description="test")
-    async def template(self, interaction: discord.Interaction):
-        global notion_data
-        today = date.today()
+    #     for i in range(loop_cnt):
+    #         await interaction.channel.send(data[i]["title"])
 
-        for nd in notion_data:
-            nd_yaer, nd_month, nd_day = map(int, nd["timeSchedule"].split("-"))
-            noda = date(nd_yaer, nd_month, nd_day)
+    @app_commands.command(name="show_embed", description="埋め込みメッセージを表示")
+    async def show_embed(self, interaction: discord.Interaction, loop_cnt: int = 1):
+        data = nc.get_notion_data(database_id)
+        sorted_data = sorted(data, key=lambda x: datetime.strptime(x["timeschedul"], "%Y/%m/%d"), reverse=False)
+        filter_data = list(filter(lambda x: x["dead_line_exceed"] == False, sorted_data))
 
-            if today > noda:
-                await interaction.channel.send(f'予定超過 : {nd["title"]}, {nd["select"]}, {nd["timeSchedule"]}, {nd["okPerson"]}')
-            else:
-                await interaction.channel.send(f'予定内 : {nd["title"]}, {nd["select"]}, {nd["timeSchedule"]}, {nd["okPerson"]}')
+        # Embedの作成
+        embed = discord.Embed(title=f'直近 {max(loop_cnt, len(filter_data))} 個の予定を表示します。', description="", color=discord.Color.blue())
+        
+        # フィールドを追加
+        for i in range(max(loop_cnt, len(filter_data))-loop_cnt, max(loop_cnt, len(filter_data))):
+            embed.add_field(name=f'{filter_data[i]["timeschedul"]}　{filter_data[i]["title"]}\n', value="", inline=False)
+
+        # embed.set_thumbnail(url="https://media1.tenor.com/m/4poLNzFGYTwAAAAC/suneo-dance-dance.gif")
+        embed.set_author(name=f'{interaction.user.display_name}', icon_url="https://media1.tenor.com/m/4poLNzFGYTwAAAAC/suneo-dance-dance.gif", url="https://www.notion.so/schedule-af2f277686974b18bf885570e0e54275")
+
+        # Embedを送信
+        await interaction.response.send_message(embed=embed)
 
 async def setup(bot):
-    await bot.add_cog(test_notion(bot))  # ボットにCogを追加
+    await bot.add_cog(test_notion_a(bot))  # ボットにCogを追加
