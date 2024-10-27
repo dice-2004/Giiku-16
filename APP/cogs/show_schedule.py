@@ -20,9 +20,13 @@ class show_schedule(commands.Cog):  # Cogクラスの継承を修正
 
     @commands.Cog.listener()
     async def on_ready(self):
+        print("Botが準備完了")
         print("コマンド同期開始")
-        await self.tree.sync()  # Botが準備完了したときにコマンドを同期
-        print("コマンド同期完了")
+        try:
+            await self.tree.sync()
+            print("コマンド同期完了")
+        except Exception as e:
+            print(f"コマンド同期中にエラーが発生しました: {e}")
 
     @app_commands.command(name="show_schedule", description="引数で日数指定")
     async def show_schedule(self, interaction: discord.Interaction, UntilDaysLaterIs: int = 1):
