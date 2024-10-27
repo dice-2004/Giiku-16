@@ -31,6 +31,7 @@ class fetcher:
         return dict(self.dix)
 
     def write_config(self, key, value):
+        print("write_fet")
         config = configparser.ConfigParser()
         config.read("./config.ini", encoding="utf-8")
         data={

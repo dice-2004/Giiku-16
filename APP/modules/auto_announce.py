@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
+from modules import fetch_class
 
 class AutoAnnounce():
 
@@ -22,7 +23,7 @@ class AutoAnnounce():
             return
         JST_time = datetime.now()
         now = str (JST_time).split(" ")[1].split(".")[0].split(":")[0] + str (JST_time).split(" ")[1].split(".")[0].split(":")[1]
-        if(now == time):
+        if(now != time):
             await ch.send(now)
             button_embed = discord.Embed(title="今日、明日が期限の予定を表示します")
             await ch.send(embed=button_embed)
@@ -50,6 +51,10 @@ class AutoAnnounce():
             notion_name = "1828 NAoMi"
         if inter.user.name == "chog29.":
             notion_name = "chog29"
+
+        #fet = fetch_class.fetcher
+        #notion_name = fet.name_fetch()[inter.user]
+        #print(notion_name)
         
         #embedsを使うならこれ
         task_embeds = []

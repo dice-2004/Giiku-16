@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from discord.ui import TextInput, Modal
-from modules import fetch_class as fet
+from modules import fetch_class
 
 class Register(commands.Cog):  # Cogクラスの継承を修正
     def __init__(self, bot):
@@ -35,4 +35,5 @@ class Question(Modal):
         await interaction.response.send_message(
             f"{interaction.user} さんのnotionのユーザー名を {self.answer.value} で登録します", ephemeral=True
         )
-        fet.write_config(self, interaction.user, self.answer.value)
+        fet = fetch_class.fetcher()
+        fet.write_config(interaction.user, self.answer.value)
