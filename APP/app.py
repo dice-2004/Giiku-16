@@ -41,8 +41,8 @@ async def on_interaction(inter:discord.Interaction):
         pass
 
 async def load_extensions():
-    await bot.load_extension("cogs.botton")
-    await bot.load_extension("cogs.template")
+    # await bot.load_extension("cogs.botton")
+    # await bot.load_extension("cogs.template")
     await bot.load_extension("cogs.show_schedule")
 
 async def main():
