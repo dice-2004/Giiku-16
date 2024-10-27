@@ -52,7 +52,6 @@ class show_schedule(commands.Cog):  # Cogクラスの継承を修正
         if interaction.user.name == "chog29.":
             notion_name = "chog29"
 
-        # print(notion_name)
 
         data = nc.get_notion_data(database_id)
         sorted_data_timeschedule = sorted(data, key=lambda x: datetime.strptime(x["timeschedule"], "%Y/%m/%d"), reverse=False)
