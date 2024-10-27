@@ -4,7 +4,7 @@ import configparser
 class fetcher:
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read("./config.ini", encoding="utf-8")
+        config.read("./config.ini", encoding="shift-jis")
         self.notion_token = config["NOTION"]["NOTION_TOKEN"]
         self.page_id = config["NOTION"]["PAGE_ID"]
         self.database_id = config["NOTION"]["DATABASE_ID"]
@@ -32,7 +32,7 @@ class fetcher:
 
     def write_config(self, key, value):
         config = configparser.ConfigParser()
-        config.read("./config.ini", encoding="utf-8")
+        config.read("./config.ini", encoding="shift-jis")
         data={
             key:{
                 'name':value
