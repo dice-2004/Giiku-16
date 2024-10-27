@@ -42,6 +42,7 @@ class Notion:
                 person.append(okperson)
 
             out_data={"title":title,"select":select,"timeschedul":timeschedul,"person":person,"dead_line_exceed":dead_line_exceed}
+            print(out_data)
             return_data.append(out_data)
         return return_data
 
@@ -101,7 +102,7 @@ if __name__ == "__main__":
 
     notion = Notion(notion_token)
     # str=[]
-    # str=notion.get_notion_data(database_id)
+    str=notion.get_notion_data(database_id)
     # print(str)
-    str = notion.get_page_id(database_id, "データベース中間")
+    # str = notion.get_page_id(database_id, "データベース中間")
     print(str)
