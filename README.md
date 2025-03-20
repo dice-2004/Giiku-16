@@ -1,5 +1,5 @@
 # Technical Announce
-##概要
+## 概要
 Notionで作成したカレンダーに入力されている予定を日付が近くなったらDiscord上で通知するbot.
 
 日ごろからnotionを使用しており、notionを開ける頻度が高いためほかのカレンダーアプリとの接続ではなくnotionを採用.
